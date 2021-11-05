@@ -19,22 +19,22 @@ var numericStrArr = "0123456789".split("");
 
 function generatePassword() {
     var userCharPool = [];
+    
+    var userChoiceLength = parseInt(prompt("Enter password length 8 through 128."));
+    while (userChoiceLength < 8 || userChoiceLength > 128 || userChoiceLength === NaN) {
+        userChoiceLength = parseInt(prompt("Password length must have at least 8 characters."));
+    }
     while (userCharPool.length === 0) {
-        var userChoiceLength = parseInt(prompt("Enter password length 8 through 128."));
-        while (userChoiceLength < 8 || userChoiceLength > 128 || userChoiceLength === NaN) {
-            userChoiceLength = parseInt(prompt("Password length must have at least 8 characters."));
-        }
-
         var userChoiceLowerCase = confirm("Click OK to confirm having lowercase characters.");
         if (userChoiceLowerCase) {
             copyArrayPool(lowerCaseStrArr, userCharPool);
         }    
-    
+
         var userChoiceUpperCase = confirm("Click OK to confirm having uppercase characters.");
         if (userChoiceUpperCase) {
             copyArrayPool(upperCaseStrArr, userCharPool);
         }
-    
+
         var userChoiceNumbers = confirm("Click OK to confirm having numeric characters.");
         if (userChoiceNumbers) {
             copyArrayPool(numericStrArr, userCharPool);
@@ -46,18 +46,19 @@ function generatePassword() {
         } 
 
         if (userCharPool.length === 0) {
-            alert("Must select at least one character type. Try again");
+            alert("Must confirm to at least having one character type.");
             continue;
         }
+    }
 
-        var passwordArr = [];
+    var passwordArr = [];
 
-        for (var i = 0; i < userChoiceLength; i++) {
+    for (var i = 0; i < userChoiceLength; i++) {
         var randomIndex = Math.floor(Math.random() * userCharPool.length);
         passwordArr.push(userCharPool[randomIndex]);
-        }
-        return passwordArr.join("");
     }
+    return passwordArr.join("");
+    
 }
 
 function copyArrayPool(arr, userCharPool) {
